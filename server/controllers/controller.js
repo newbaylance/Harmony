@@ -1,6 +1,8 @@
 const axios = require("axios")
 const openAI = require("../helpers/openai")
 const { User, Female, Male } = require("../models/")
+const { comparePassword } = require("../helpers/bcrypt")
+const { signToken } = require("../helpers/jwt")
 
 const TYPEFORM_API_URL = 'https://api.typeform.com';
 const TYPEFORM_API_TOKEN = process.env.TYPEFORM_API_TOKEN;
@@ -63,7 +65,36 @@ module.exports = class Controller {
 
     static async login(req, res, next) {
         try {
+            const {email, password} = req.body
+            if(!email || !password) {
+                throw {name : "EMAIL_PASSWORD_REQUIRED"}
+            }
+
+            const foundUser = await User.findOne({
+                where: {
+                    email
+                }
+            })
+
+            if(!foundUser) {
+                throw {name : "UNAUTHORIZED"}
+            }
+
+            const compared = comparePassword(password, foundUser.password)
+
+            if(!compared) {
+                throw {name : "UNAUTHORIZED"}
+            }
             
+            //Generete token bawa ID
+            const access_token = signToken({
+                id: foundUser.id
+            })
+            const id = foundUser.id
+
+            res.status(200).json({
+                access_token, id
+            })
         } catch (error) {
             console.log(error)
         }
@@ -71,7 +102,11 @@ module.exports = class Controller {
 
     static async postProfileMale(req, res, next) {
         try {
-            
+            let { id } = req.params
+            let {name, datebirth, height, weight, imageUrl, job, style} = req.body
+            let male = await Male.create({name, datebirth, height, weight, imageUrl, job, style, UserId: id})
+
+            res.status(201).json(male)
         } catch (error) {
             console.log(error)
         }
@@ -79,7 +114,11 @@ module.exports = class Controller {
 
     static async postProfileFemale(req, res, next) {
         try {
-            
+            let { id } = req.params
+            let {name, datebirth, height, weight, imageUrl, job, style} = req.body
+            let female = await Female.create({name, datebirth, height, weight, imageUrl, job, style, UserId: id})
+
+            res.status(201).json(female)   
         } catch (error) {
             console.log(error)
         }
@@ -111,7 +150,12 @@ module.exports = class Controller {
 
     static async getFemaleById(req, res, next) {
         try {
-            
+            let {id} = req.params
+            let female = await Female.findByPk(id)
+            if(!female) {
+                throw { name: "NOT_FOUND"}
+            }
+            res.status(200).json(female) 
         } catch (error) {
             console.log(error)
         }
@@ -119,7 +163,12 @@ module.exports = class Controller {
 
     static async getMaleById(req, res, next) {
         try {
-            
+            let {id} = req.params
+            let male = await Male.findByPk(id)
+            if(!male) {
+                throw { name: "NOT_FOUND"}
+            }
+            res.status(200).json(male)
         } catch (error) {
             console.log(error)
         }
