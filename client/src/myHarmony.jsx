@@ -4,9 +4,8 @@ import { useParams } from "react-router-dom"
 
 useEffect
 
-export default function Generate() {
-  const { id } = useParams()
-    
+export default function MyHarmony() {
+
     const [value, setValue] = useState({})
     const [user, setUser] = useState({})
     
@@ -15,13 +14,13 @@ export default function Generate() {
             try {
               let result = {}
               if(localStorage.gender === "male") {
-                let {data} = await axios.get(`http://localhost:3000/user/male/${id}`)
-                result = data
+                let {data} = await axios.get(`http://localhost:3000/harmonyMale/${localStorage.id}`)
+                result = data[0].Female
               } else {
-                let {data} = await axios.get(`http://localhost:3000/user/female/${id}`)
-                result = data
+                let {data} = await axios.get(`http://localhost:3000/harmonyFemale/${localStorage.id}`)
+                result = data[0].Male
               }
-              //   console.log(data, "<-----")
+                console.log(result, "<-----")
                 setUser(result)
               } catch (error) {
                 console.log(error)
@@ -67,7 +66,7 @@ export default function Generate() {
                         <h4>Pekerjaan</h4>
                         <p>{user.job}</p>
                         <h4>Gaya Pendekatan</h4>
-                        <button className="btn btn-outline-dark" onClick={fetchData} style={{marginTop: "10px", marginBottom: "10px"}}>Tampilkan Analisa Gaya Pendekatan Saya</button>
+                        <button className="btn btn-outline-dark" onClick={fetchData} style={{marginTop: "10px", marginBottom: "10px"}}>Pahami Karakter {user.name}</button>
                         <p>
                             Analisa Karakter: {value["analisa"]}
                         </p>

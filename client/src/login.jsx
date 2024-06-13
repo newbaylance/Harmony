@@ -35,6 +35,7 @@ const Login = () => {
       // console.log(data, "<-------------data")
       localStorage.access_token = data.access_token
       localStorage.id = data.id
+      localStorage.gender = data.gender
 
       navigate(`/user/${localStorage.id}`)
     } catch (error) {

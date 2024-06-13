@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Harmony.belongsTo(models.Female)
+      Harmony.belongsTo(models.Male)
     }
   }
   Harmony.init({

@@ -62,7 +62,16 @@ function AddForm({gender}) {
         })
         navigate(`/my-profile/${id}`)
       } else {
-        await axios.post(`http://localhost:3000/user/female/:id`, form)
+        await axios.post(`http://localhost:3000/user/female/${id}`, {
+          name: form.name,
+          datebirth: form.datebirth,
+          height: form.height,
+          weight: form.weight,
+          imageUrl: form.imageUrl,
+          job: form.job,
+          style: value
+        })
+        navigate(`/my-profile/${id}`)
       }
     } catch (error) {
       console.log(error)

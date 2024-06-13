@@ -27,7 +27,9 @@ app.put('/user/male/:id', Controller.putProfileMale)
 app.put('/user/female/:id', Controller.putProfileFemale)
 app.get('/user/male/:id', Controller.getMaleById)
 app.get('/user/female/:id', Controller.getFemaleById)
-app.get('/harmony', Controller.getHarmonies)
+app.post('/harmony', Controller.postHarmony)
+app.get('/harmonyMale/:id', Controller.getHarmoniesMale)
+app.get('/harmonyFemale/:id', Controller.getHarmoniesFemale)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

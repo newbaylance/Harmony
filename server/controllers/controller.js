@@ -1,9 +1,10 @@
 const axios = require("axios")
 const openAI = require("../helpers/openai")
-const { User, Female, Male } = require("../models/")
+const { User, Female, Male, Harmony } = require("../models/")
 const { comparePassword } = require("../helpers/bcrypt")
 const { signToken } = require("../helpers/jwt")
 const { where } = require("sequelize")
+
 
 const TYPEFORM_API_URL = 'https://api.typeform.com';
 const TYPEFORM_API_TOKEN = process.env.TYPEFORM_API_TOKEN;
@@ -92,9 +93,10 @@ module.exports = class Controller {
                 id: foundUser.id
             })
             const id = foundUser.id
+            const gender = foundUser.gender
 
             res.status(200).json({
-                access_token, id
+                access_token, id, gender
             })
         } catch (error) {
             console.log(error)
@@ -177,9 +179,52 @@ module.exports = class Controller {
         }
     }
 
-    static async getHarmonies(req, res, next) {
+    static async getHarmoniesMale(req, res, next) {
         try {
-            
+            const { id } = req.params
+            const data = await Harmony.findAll({
+                where: {
+                    MaleId: id
+                },
+                include: [
+                    {
+                        model: Female
+                    }
+                ]
+            })
+
+            res.json(data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    static async getHarmoniesFemale(req, res, next) {
+        try {
+            const { id } = req.params
+            const data = await Harmony.findAll({
+                where: {
+                    FemaleId: id
+                },
+                include: [
+                    {
+                        model: Male
+                    }
+                ]
+            })
+
+            res.json(data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    static async postHarmony(req, res, next) {
+        try {
+            const { FemaleId, MaleId } = req.body
+            const data = await Harmony.create({FemaleId, MaleId})
+
+            res.status(201).json(data)
         } catch (error) {
             console.log(error)
         }

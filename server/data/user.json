@@ -2,51 +2,61 @@
     {
         "id": 1,
         "email": "budi.santoso@example.com",
-        "password": "Password123!"
+        "password": "Password123!",
+        "gender": "male"
     },
     {
         "id": 2,
         "email": "siti.aminah@example.com",
-        "password": "Aminah2023@"
+        "password": "Aminah2023@",
+        "gender": "female"
     },
     {
         "id": 3,
         "email": "andi.wijaya@example.com",
-        "password": "Wijaya_1982"
+        "password": "Wijaya_1982",
+        "gender": "male"
     },
     {
         "id": 4,
         "email": "dewi.lestari@example.com",
-        "password": "DewiLestari95$"
+        "password": "DewiLestari95$",
+        "gender": "female"
     },
     {
         "id": 5,
         "email": "rudi.hartono@example.com",
-        "password": "RudiHartono88!"
+        "password": "RudiHartono88!",
+        "gender": "male"
     },
     {
         "id": 6,
         "email": "linda.putri@example.com",
-        "password": "Linda_Putri123"
+        "password": "Linda_Putri123",
+        "gender": "female"
     },
     {
         "id": 7,
         "email": "arif.setiawan@example.com",
-        "password": "ArifSetiawan87#"
+        "password": "ArifSetiawan87#",
+        "gender": "male"
     },
     {
         "id": 8,
         "email": "maya.sari@example.com",
-        "password": "MayaSari1991!"
+        "password": "MayaSari1991!",
+        "gender": "female"
     },
     {
         "id": 9,
         "email": "rizal.fahmi@example.com",
-        "password": "RizalFahmi_84"
+        "password": "RizalFahmi_84",
+        "gender": "male"
     },
     {
         "id": 10,
         "email": "nina.safitri@example.com",
-        "password": "NinaSafitri96*"
+        "password": "NinaSafitri96*",
+        "gender": "female"
     }
 ]

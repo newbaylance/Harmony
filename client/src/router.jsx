@@ -7,6 +7,8 @@ import Home from "./home";
 import Gender from "./gender";
 import AddForm from "./addForm";
 import Login from "./login";
+import Harmony from "./harmony";
+import MyHarmony from "./myHarmony";
 
 const router = createBrowserRouter([
   {
@@ -32,7 +34,15 @@ const router = createBrowserRouter([
       {
         path: "my-profile/:id",
         element: <Generate />,
-      }
+      },
+      {
+        path: "harmony",
+        element: <Harmony />,
+      },
+      {
+        path: "my-harmony",
+        element: <MyHarmony />,
+      },
   ]}
 
   ]);
