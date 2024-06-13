@@ -187,8 +187,12 @@ module.exports = class Controller {
 
     static async getFemaleById(req, res, next) {
         try {
-            let {id} = req.params
-            let female = await Female.findByPk(id)
+            const { id } = req.params
+            let female = await Female.findOne({
+                where: {
+                    UserId: id
+                }
+            })
             if(!female) {
                 throw { name: "NOT_FOUND"}
             }
@@ -200,8 +204,12 @@ module.exports = class Controller {
 
     static async getMaleById(req, res, next) {
         try {
-            let {id} = req.params
-            let male = await Male.findByPk(id)
+            const { id } = req.params
+            let male = await Male.findOne({
+                where: {
+                    UserId: id
+                }
+            })
             if(!male) {
                 throw { name: "NOT_FOUND"}
             }

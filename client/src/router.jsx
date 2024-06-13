@@ -1,19 +1,39 @@
 import {
     createBrowserRouter,
   } from "react-router-dom";
-import App from "./App";
+import App from "./addForm";
 import Generate from "./generate";
-import TypeformPage from "./typeform";
+import Home from "./home";
+import Gender from "./gender";
+import AddForm from "./addForm";
+import Login from "./login";
 
 const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <App />,
-    },
-    {
-      path: "/generate",
-      element: <Generate />,
-    },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/",
+    element: <Home />,
+    children: [
+      {
+        path: "user/:id",
+        element: <Gender />,
+      },
+      {
+        path: "addMale/:id",
+        element: <AddForm gender={"male"}/>,
+      },
+      {
+        path: "addFemale/:id",
+        element: <AddForm gender={"female"}/>,
+      },
+      {
+        path: "my-profile/:id",
+        element: <Generate />,
+      }
+  ]}
 
   ]);
 
