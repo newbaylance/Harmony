@@ -3,6 +3,7 @@ const openAI = require("../helpers/openai")
 const { User, Female, Male } = require("../models/")
 const { comparePassword } = require("../helpers/bcrypt")
 const { signToken } = require("../helpers/jwt")
+const { where } = require("sequelize")
 
 const TYPEFORM_API_URL = 'https://api.typeform.com';
 const TYPEFORM_API_TOKEN = process.env.TYPEFORM_API_TOKEN;
@@ -124,9 +125,43 @@ module.exports = class Controller {
         }
     }
 
+    static async putProfileMale(req, res, next) {
+        try {
+            let { id } = req.params
+            let {job} = req.body
+            await Male.update({job}, {
+                where: {
+                    id
+                }
+            })
+            let newMale = await Male.findByPk(id)
+            res.status(200).json(newMale)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    static async putProfileFemale(req, res, next) {
+        try {
+            let { id } = req.params
+            let {job} = req.body
+            await Female.update({job}, {
+                where: {
+                    id
+                }
+            })
+            let newFemale = await Female.findByPk(id)
+            res.status(200).json(newFemale)   
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     static async getMales(req, res, next) {
         try {
-            
+            const data = await Male.findAll()
+
+            res.status(200).json(data)
         } catch (error) {
             console.log(error)
         }
@@ -134,7 +169,9 @@ module.exports = class Controller {
     
     static async getFemales(req, res, next) {
         try {
-            
+            const data = await Female.findAll()
+
+            res.json(data)
         } catch (error) {
             console.log(error)
         }
