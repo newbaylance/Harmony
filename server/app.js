@@ -15,6 +15,8 @@ app.use(express.json())
 app.use(cors())
 
 
+app.post('/generate', Controller.generate)
+app.get('/test', Controller.test)
 app.post('/register', Controller.register)
 app.post('/login', Controller.login)
 app.get('/user/male', Controller.getMales)
