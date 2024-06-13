@@ -13,7 +13,7 @@ function App() {
   const fetchData = async (el) => {
     el.preventDefault()
     try {
-      let {data} = await axios.get(`http://localhost:3000/user/male`)
+      let {data} = await axios.get(`http://localhost:3000/test`)
       data = data.result
       console.log(data, "<-----")
       console.log(value)
