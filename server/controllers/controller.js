@@ -3,9 +3,8 @@ const openAI = require("../helpers/openai")
 const { User, Female, Male, Harmony } = require("../models/")
 const { comparePassword } = require("../helpers/bcrypt")
 const { signToken } = require("../helpers/jwt")
-const { where } = require("sequelize")
 const { OAuth2Client } = require("google-auth-library")
-const { defaults } = require("pg")
+
 
 
 const TYPEFORM_API_URL = 'https://api.typeform.com';
