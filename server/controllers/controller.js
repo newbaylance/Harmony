@@ -4,6 +4,8 @@ const { User, Female, Male, Harmony } = require("../models/")
 const { comparePassword } = require("../helpers/bcrypt")
 const { signToken } = require("../helpers/jwt")
 const { where } = require("sequelize")
+const { OAuth2Client } = require("google-auth-library")
+const { defaults } = require("pg")
 
 
 const TYPEFORM_API_URL = 'https://api.typeform.com';
@@ -13,7 +15,39 @@ const TYPEFORM_FORM_ID = process.env.TYPEFORM_FORM_ID;
 
 module.exports = class Controller {
 
+    static async googleLogin(req, res, next) {
+        try {
+            const client = new OAuth2Client()
 
+            const ticket = await client.verifyIdToken({
+                idToken: req.headers.google_token,
+                audience: process.env.GOOGLE_CLIENT_ID,
+            })
+
+            const payload = ticket.getPayload()
+
+            const [user, created] = await User.findOrCreate({
+                where: { email: payload.email },
+                defaults: {
+                    email: payload.email,
+                    password: "pass_akun_google",
+                },
+                hooks: false,
+            })
+
+            const access_token = signToken({
+                id: user.id
+            })
+
+            const status = created ? 201 : 200
+
+            res.status(status).json({ access_token })
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    
     static async generate(req, res, next) {
         try {
             let {style} = req.body

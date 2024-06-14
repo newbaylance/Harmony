@@ -7,6 +7,25 @@ import {useNavigate} from "react-router-dom";
 const Login = () => {
   const navigate = useNavigate()
 
+  async function handleCredentialResponse(response) {
+    try {
+        const { data } = await axios({
+            url: "http://localhost:3000/google-sign-in",
+            method: "post",
+            headers: {
+                google_token: response.credential,
+            }
+        })
+
+        localStorage.access_token = data.access_token
+        localStorage.id = data.id
+
+        navigate(`/user/${localStorage.id}`)
+    } catch (error) {
+        console.log(error)
+    }
+  }
+
   const [loginForm, setLoginForm] = useState({
     email: "",
     password: "",
@@ -47,6 +66,17 @@ const Login = () => {
     if(localStorage.access_token) {
       navigate("/home")
     }
+
+    google.accounts.id.initialize({
+        client_id:
+            "726630264573-de4e2rdek6ljsaeekaggd9vb24gc6m0t.apps.googleusercontent.com",
+        callback: handleCredentialResponse
+    })
+
+    google.accounts.id.renderButton(
+        document.getElementById("buttonDiv"),
+        {theme: "outline", size: "large"}
+    )
   }, [])
   
 
@@ -76,8 +106,11 @@ const Login = () => {
               
               <div style={{marginTop: "10px"}}>
                 <button type="submit" className="btn btn-primary">Login</button>
-              </div>
+              </div> <br />
+
+              <div id="buttonDiv"></div>
         </form>
+        
       </div>
       </>
   );

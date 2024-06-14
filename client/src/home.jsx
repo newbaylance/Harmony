@@ -23,10 +23,9 @@ function Home() {
             </button>
             <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="navbar-nav w-100">
-                <Link className="nav-link" to="/home">Edit Profile</Link>
+                <Link className="nav-link" to="/edit">Edit Profile</Link>
                 <Link className="nav-link" to={`/my-profile/${localStorage.id}`}>My Profile</Link>
                 <Link className="nav-link" to="/harmony">Find Your Harmony</Link>
-                <Link className="nav-link" to="/my-harmony">My Harmony</Link>
                 <div className="ms-auto">
                     <Link className="nav-link" to="/login" onClick={handleClick}>Logout</Link>
                 </div>

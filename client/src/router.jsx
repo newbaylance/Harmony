@@ -1,7 +1,6 @@
 import {
     createBrowserRouter,
   } from "react-router-dom";
-import App from "./addForm";
 import Generate from "./generate";
 import Home from "./home";
 import Gender from "./gender";
@@ -9,6 +8,7 @@ import AddForm from "./addForm";
 import Login from "./login";
 import Harmony from "./harmony";
 import MyHarmony from "./myHarmony";
+import EditForm from "./editForm";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: "my-harmony",
         element: <MyHarmony />,
+      },
+      {
+        path: "edit",
+        element: <EditForm />,
       },
   ]}
 
