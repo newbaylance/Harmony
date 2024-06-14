@@ -1,0 +1,52 @@
+[
+    {
+        "name": "Siti Aminah",
+        "datebirth": "1990-05-24",
+        "height": 160,
+        "weight": 55,
+        "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhyg4N80wzCqKa5B6wcHVIgHc2RqGA0YcDCw&s",
+        "job": "Dokter",
+        "style": "anxious",
+        "UserId": 2
+    },
+    {
+        "name": "Dewi Lestari",
+        "datebirth": "1995-11-02",
+        "height": 165,
+        "weight": 60,
+        "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhyg4N80wzCqKa5B6wcHVIgHc2RqGA0YcDCw&s",
+        "job": "Penulis",
+        "style": "anxious",
+        "UserId": 4
+    },
+    {
+        "name": "Linda Putri",
+        "datebirth": "1993-12-30",
+        "height": 158,
+        "weight": 52,
+        "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhyg4N80wzCqKa5B6wcHVIgHc2RqGA0YcDCw&s",
+        "job": "Desainer",
+        "style": "avoidance",
+        "UserId": 6
+    },
+    {
+        "name": "Maya Sari",
+        "datebirth": "1991-04-20",
+        "height": 162,
+        "weight": 57,
+        "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhyg4N80wzCqKa5B6wcHVIgHc2RqGA0YcDCw&s",
+        "job": "Aktris",
+        "style": "avoidance",
+        "UserId": 8
+    },
+    {
+        "name": "Nina Safitri",
+        "datebirth": "1996-01-14",
+        "height": 164,
+        "weight": 59,
+        "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhyg4N80wzCqKa5B6wcHVIgHc2RqGA0YcDCw&s",
+        "job": "Jurnalis",
+        "style": "secure",
+        "UserId": 10
+    }
+]
