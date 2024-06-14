@@ -90,10 +90,10 @@ module.exports = class Controller {
 
     static async register(req, res, next) {
         try {
-            const {email, password} = req.body
-            const newUser = await User.create({email, password})
+            const {email, password, gender} = req.body
+            const newUser = await User.create({email, password, gender})
 
-            res.status(201).json({id: newUser.id, email: newUser.email})
+            res.status(201).json({id: newUser.id, email: newUser.email, gender: newUser.gender})
         } catch (error) {
             console.log(error)
         }

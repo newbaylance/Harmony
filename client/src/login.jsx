@@ -107,10 +107,11 @@ const Login = () => {
               <div style={{marginTop: "10px"}}>
                 <button type="submit" className="btn btn-primary">Login</button>
               </div> <br />
-
+              <div>
+                 <p>Don't have an account yet?</p> <a href="/register">Register</a>
+              </div> <br />
               <div id="buttonDiv"></div>
         </form>
-        
       </div>
       </>
   );

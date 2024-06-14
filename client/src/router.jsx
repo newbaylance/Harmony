@@ -9,8 +9,13 @@ import Login from "./login";
 import Harmony from "./harmony";
 import MyHarmony from "./myHarmony";
 import EditForm from "./editForm";
+import Register from "./register";
 
 const router = createBrowserRouter([
+  {
+    path: "/register",
+    element: <Register />,
+  },
   {
     path: "/login",
     element: <Login />,
