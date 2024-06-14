@@ -1,0 +1,52 @@
+[
+    {
+        "name": "Budi Santoso",
+        "datebirth": "1985-07-12",
+        "height": 175,
+        "weight": 70,
+        "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-CyCfmmCiQSVSTDYYtyYkaAErZsjrJ0lJLQ&s",
+        "job": "Insinyur",
+        "style": "anxious",
+        "UserId": 1
+    },
+    {
+        "name": "Andi Wijaya",
+        "datebirth": "1982-03-10",
+        "height": 180,
+        "weight": 80,
+        "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-CyCfmmCiQSVSTDYYtyYkaAErZsjrJ0lJLQ&s",
+        "job": "Pengacara",
+        "style": "anxious",
+        "UserId": 3
+    },
+    {
+        "name": "Rudi Hartono",
+        "datebirth": "1988-08-19",
+        "height": 170,
+        "weight": 75,
+        "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-CyCfmmCiQSVSTDYYtyYkaAErZsjrJ0lJLQ&s",
+        "job": "Pengusaha",
+        "style": "avoidance",
+        "UserId": 5
+    },
+    {
+        "name": "Arif Setiawan",
+        "datebirth": "1987-06-15",
+        "height": 172,
+        "weight": 68,
+        "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-CyCfmmCiQSVSTDYYtyYkaAErZsjrJ0lJLQ&s",
+        "job": "Guru",
+        "style": "avoidance",
+        "UserId": 7
+    },
+    {
+        "name": "Rizal Fahmi",
+        "datebirth": "1984-09-05",
+        "height": 178,
+        "weight": 72,
+        "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-CyCfmmCiQSVSTDYYtyYkaAErZsjrJ0lJLQ&s",
+        "job": "Arsitek",
+        "style": "secure",
+        "UserId": 9
+    }
+]
