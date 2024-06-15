@@ -1,51 +1,75 @@
 import { useEffect, useState } from "react"
 import axios from 'axios'
-import { useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 
 useEffect
 
 export default function MyHarmony() {
-
+    const navigate = useNavigate()
     const [value, setValue] = useState({})
     const [user, setUser] = useState({})
+
     
     useEffect(() => {
         const fetchUser = async () => {
             try {
               let result = {}
               if(localStorage.gender === "male") {
-                let {data} = await axios.get(`http://localhost:3000/harmonyMale/${localStorage.id}`)
-                result = data[0].Female
+                let {data} = await axios.get(`http://localhost:3000/harmonyMale/${localStorage.MaleId}`, {
+                  headers: {
+                      Authorization: `Bearer ${localStorage.access_token}`,
+                  }
+              })
+                result = data[data.length-1].Female
               } else {
-                let {data} = await axios.get(`http://localhost:3000/harmonyFemale/${localStorage.id}`)
-                result = data[0].Male
+                let {data} = await axios.get(`http://localhost:3000/harmonyFemale/${localStorage.FemaleId}`, {
+                  headers: {
+                      Authorization: `Bearer ${localStorage.access_token}`,
+                  }
+              })
+                result = data[data.length-1].Male
               }
                 console.log(result, "<-----")
                 setUser(result)
               } catch (error) {
                 console.log(error)
-              }  
+              }
         }
 
         fetchUser()
 
     }, [])
     
-    
-
-    const fetchData = async () => {
-    try {
-      
-      let {data} = await axios.post(`http://localhost:3000/generate`,
-        {
-            style: user.style
-        })
-    //   console.log(data, "<-----")
-      setValue(data)
+    const deleteData = async () => {
+      try {
+        if(localStorage.gender === "male"){
+            const { data } = await axios.delete("http://localhost:3000/harmony", {
+              headers: {
+                  Authorization: `Bearer ${localStorage.access_token}`,
+              }
+            }, {
+                FemaleId: user.id,
+                MaleId: +localStorage.MaleId
+            }) 
+            Swal.fire(`${user.name} has been deleted from your harmony`) 
+            navigate("/harmony") 
+        } else {
+            const { data } = await axios.delete("http://localhost:3000/harmony", {
+              headers: {
+                  Authorization: `Bearer ${localStorage.access_token}`,
+              }
+            }, {
+                FemaleId: +localStorage.FemaleId,
+                MaleId: user.id
+            }) 
+            Swal.fire(`${user.name} has been deleted from your harmony`)
+            navigate("/harmony")  
+        }
     } catch (error) {
-      console.log(error)
+        console.log(error)
     }
-  }
+    }
+
 
     return(
         <>
@@ -54,7 +78,7 @@ export default function MyHarmony() {
                 <div className="col-3 text-center">
                     <div className="p-3" style={{marginTop: "20px"}}>
                         <img src={user.imageUrl}
-                        alt="photo-product"
+                        alt="photo"
                         style={{width: "auto", height: "50vh", objectFit: "cover", boxShadow: "10px 10px 20px rgba(0, 0, 0, 0.5)"}}
                         />
                     </div>
@@ -65,17 +89,12 @@ export default function MyHarmony() {
                         <p>{user.name}</p>
                         <h4>Pekerjaan</h4>
                         <p>{user.job}</p>
-                        <h4>Gaya Pendekatan</h4>
-                        <button className="btn btn-outline-dark" onClick={fetchData} style={{marginTop: "10px", marginBottom: "10px"}}>Pahami Karakter {user.name}</button>
-                        <p>
-                            Analisa Karakter: {value["analisa"]}
-                        </p>
-                        <p>
-                            Analisa Kelebihan: {value["kelebihan"]}
-                        </p>
-                        <p>
-                            Analisa Kekurangan: {value["kekurangan"]}
-                        </p>
+                        <h4>Tinggi</h4>
+                        <p>{user.height} cm</p>
+                        <h4>Berat Badan</h4>
+                        <p>{user.weight} kg</p>
+                        <Link to={"/my-harmony/detail"} className="btn btn-success" style={{marginRight: "10px"}}>Detail</Link>
+                        <button className="btn btn-danger" onClick={deleteData}>Delete</button>
                     </div>
                 </div>
             </div>

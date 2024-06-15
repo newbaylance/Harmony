@@ -51,20 +51,31 @@ const Login = () => {
         email: loginForm.email,
         password: loginForm.password,
       })
-      // console.log(data, "<-------------data")
+      console.log(data, "<-------------data")
       localStorage.access_token = data.access_token
       localStorage.id = data.id
       localStorage.gender = data.gender
-
-      navigate(`/user/${localStorage.id}`)
+      localStorage.MaleId = data.MaleId
+      localStorage.FemaleId = data.FemaleId
+      
+      if(data.MaleId == 0 && data.FemaleId == 0) {
+        navigate(`/user/${localStorage.id}`)
+      } else {
+        navigate("/harmony")
+      }
     } catch (error) {
       setError(true)
+      if(Array.isArray(error.response.data.message)) {
+        Swal.fire(error.response.data.message[0])
+        } else {
+            Swal.fire(error.response.data.message)
+        }
     }
   }
 
   useEffect(() => {
-    if(localStorage.access_token) {
-      navigate("/home")
+    if(localStorage.access_token && localStorage.MaleId && localStorage.FemaleId) {
+      navigate("/harmony")
     }
 
     google.accounts.id.initialize({

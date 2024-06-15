@@ -4,6 +4,7 @@ const { User, Female, Male, Harmony } = require("../models/")
 const { comparePassword } = require("../helpers/bcrypt")
 const { signToken } = require("../helpers/jwt")
 const { OAuth2Client } = require("google-auth-library")
+const { Op } = require("sequelize")
 
 
 
@@ -43,20 +44,20 @@ module.exports = class Controller {
             res.status(status).json({ access_token })
 
         } catch (error) {
-            console.log(error)
+            next(error)
         }
     }
     
     static async generate(req, res, next) {
         try {
             let {style} = req.body
-            console.log(style)
+            // console.log(style)
   
             let responseOpenAI = await openAI(style)
           
             res.send(responseOpenAI)
         } catch (error) {
-            console.log(error)
+            next(error)
         }
     }
 
@@ -94,7 +95,7 @@ module.exports = class Controller {
 
             res.status(201).json({id: newUser.id, email: newUser.email, gender: newUser.gender})
         } catch (error) {
-            console.log(error)
+            next(error)
         }
     }
 
@@ -120,6 +121,8 @@ module.exports = class Controller {
             if(!compared) {
                 throw {name : "UNAUTHORIZED"}
             }
+
+            console.log(foundUser, "<<<<< User")
             
             //Generete token bawa ID
             const access_token = signToken({
@@ -127,12 +130,37 @@ module.exports = class Controller {
             })
             const id = foundUser.id
             const gender = foundUser.gender
+            let MaleId = 0
+            let FemaleId = 0
+
+            
+
+            if(foundUser.gender === "male") {
+                const maleUser = await Male.findOne({
+                    where: {
+                        UserId: foundUser.id
+                    }
+                })
+                if(maleUser) {
+                    MaleId = maleUser.id
+                }
+            } else {
+                const femaleUser = await Female.findOne({
+                    where: {
+                        UserId: foundUser.id
+                    }
+                })
+                if(femaleUser) {
+                    FemaleId = femaleUser.id
+                }
+            }
+            
 
             res.status(200).json({
-                access_token, id, gender
+                access_token, id, gender, MaleId, FemaleId
             })
         } catch (error) {
-            console.log(error)
+            next(error)
         }
     }
 
@@ -144,7 +172,7 @@ module.exports = class Controller {
 
             res.status(201).json(male)
         } catch (error) {
-            console.log(error)
+            next(error)
         }
     }
 
@@ -156,7 +184,7 @@ module.exports = class Controller {
 
             res.status(201).json(female)   
         } catch (error) {
-            console.log(error)
+            next(error)
         }
     }
 
@@ -172,7 +200,7 @@ module.exports = class Controller {
             let newMale = await Male.findByPk(id)
             res.status(200).json(newMale)
         } catch (error) {
-            console.log(error)
+            next(error)
         }
     }
 
@@ -188,7 +216,7 @@ module.exports = class Controller {
             let newFemale = await Female.findByPk(id)
             res.status(200).json(newFemale)   
         } catch (error) {
-            console.log(error)
+            next(error)
         }
     }
 
@@ -198,7 +226,7 @@ module.exports = class Controller {
 
             res.status(200).json(data)
         } catch (error) {
-            console.log(error)
+            next(error)
         }
     }
     
@@ -208,7 +236,7 @@ module.exports = class Controller {
 
             res.json(data)
         } catch (error) {
-            console.log(error)
+            next(error)
         }
     }
 
@@ -228,7 +256,7 @@ module.exports = class Controller {
 
             res.json(data)
         } catch (error) {
-            console.log(error)
+            next(error)
         }
     }
 
@@ -248,7 +276,7 @@ module.exports = class Controller {
 
             res.json(data)
         } catch (error) {
-            console.log(error)
+            next(error)
         }
     }
 
@@ -259,7 +287,22 @@ module.exports = class Controller {
 
             res.status(201).json(data)
         } catch (error) {
-            console.log(error)
+            next(error)
+        }
+    }
+
+    static async deleteHarmony(req, res, next) {
+        try {
+            const { FemaleId, MaleId } = req.body
+            const data = await Harmony.destroy({
+                where: {
+                    [Op.and]: [FemaleId, MaleId],
+                }
+            })
+
+            res.status(200).json(data)
+        } catch (error) {
+            next(error)
         }
     }
 
@@ -276,7 +319,7 @@ module.exports = class Controller {
             }
             res.status(200).json(female) 
         } catch (error) {
-            console.log(error)
+            next(error)
         }
     }
 
@@ -293,7 +336,7 @@ module.exports = class Controller {
             }
             res.status(200).json(male)
         } catch (error) {
-            console.log(error)
+            next(error)
         }
     }
 }

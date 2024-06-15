@@ -36,10 +36,14 @@ export default function Register() {
                 gender: register.gender,
             })
             console.log(data)
-
+            Swal.fire("Success Register")
             navigate("/login")
         } catch (error) {
-            console.log(error)
+            if(Array.isArray(error.response.data.message)) {
+                Swal.fire(error.response.data.message[0])
+                } else {
+                    Swal.fire(error.response.data.message)
+                }
         }
     }
 
@@ -51,7 +55,7 @@ export default function Register() {
                         <form id="registerForm" onSubmit={submitHandler}>
                             <div className="mb-3">
                                 <label className="form-label">Email</label>
-                                <input type="email" value={register.email} onChange={changeHandler}  className="form-control" id="email" name="email" />
+                                <input type="email" value={register.email} onChange={changeHandler}  className="form-control" id="email" name="email"/>
                             </div>
                             <div className="mb-3">
                                 <label className="form-label">Password</label>
