@@ -9,6 +9,7 @@ const app = express()
 const port = process.env.PORT || 3000
 const Controller = require("./controllers/controller")
 const cors = require("cors")
+const errorHandler = require('./middlewares/errorHandler')
 
 
 
@@ -34,6 +35,8 @@ app.get('/user/female/:id', Controller.getFemaleById)
 app.post('/harmony', Controller.postHarmony)
 app.get('/harmonyMale/:id', Controller.getHarmoniesMale)
 app.get('/harmonyFemale/:id', Controller.getHarmoniesFemale)
+
+app.use(errorHandler)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

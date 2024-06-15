@@ -9,6 +9,7 @@ export default function Generate() {
     
     const [value, setValue] = useState({})
     const [user, setUser] = useState({})
+    const [isLoading, setIsLoading] = useState(false)
     
     useEffect(() => {
         const fetchUser = async () => {
@@ -36,7 +37,7 @@ export default function Generate() {
 
     const fetchData = async () => {
     try {
-      
+      setIsLoading(true)
       let {data} = await axios.post(`http://localhost:3000/generate`,
         {
             style: user.style
@@ -45,8 +46,25 @@ export default function Generate() {
       setValue(data)
     } catch (error) {
       console.log(error)
+      if(Array.isArray(error.response.data.message)) {
+        Swal.fire(error.response.data.message[0])
+      } else {
+          Swal.fire(error.response.data.message)
+      }
+    } finally {
+      setIsLoading(false)
     }
   }
+
+  if(isLoading) return (
+    <>
+        <div className="d-flex justify-content-center align-items-center" style={{height: "100vh"}}>
+        <div className="spinner-border" style={{width: "3rem", height: "3rem"}} role="status">
+            <span className="sr-only"></span>
+        </div>
+        </div>
+    </>
+    )
 
     return(
         <>

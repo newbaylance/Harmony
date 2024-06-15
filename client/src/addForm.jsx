@@ -51,7 +51,7 @@ function AddForm({gender}) {
     
     try {
       if(gender === "male") {
-        await axios.post(`http://localhost:3000/user/male/${id}`, {
+        const {data} = await axios.post(`http://localhost:3000/user/male/${id}`, {
           name: form.name,
           datebirth: form.datebirth,
           height: form.height,
@@ -60,9 +60,11 @@ function AddForm({gender}) {
           job: form.job,
           style: value
         })
+        localStorage.MaleId = data.id
+        Swal.fire("Success Edit Profile")
         navigate(`/my-profile/${id}`)
       } else {
-        await axios.post(`http://localhost:3000/user/female/${id}`, {
+        const {data} = await axios.post(`http://localhost:3000/user/female/${id}`, {
           name: form.name,
           datebirth: form.datebirth,
           height: form.height,
@@ -71,10 +73,16 @@ function AddForm({gender}) {
           job: form.job,
           style: value
         })
+        localStorage.FemaleId = data.id
+        Swal.fire("Success Edit Profile")
         navigate(`/my-profile/${id}`)
       }
     } catch (error) {
-      console.log(error)
+      if(Array.isArray(error.response.data.message)) {
+        Swal.fire(error.response.data.message[0])
+        } else {
+            Swal.fire(error.response.data.message)
+        }
     }
   }
 
@@ -94,14 +102,14 @@ function AddForm({gender}) {
                               <input type="text" class="form-control"
                               value={form.name}
                               onChange={changeHandler}
-                              name="name" />
+                              name="name" required />
                           </div>
                           <div class="mb-3 col">
                               <label class="form-label">Tanggal Lahir</label>
                               <input type="date" class="form-control"
                               value={form.datebirth}
                               onChange={changeHandler}
-                              name="datebirth" />
+                              name="datebirth" required />
                           </div>
                         </div>
                         <div className="row">
@@ -110,14 +118,14 @@ function AddForm({gender}) {
                               <input type="number" class="form-control" 
                               value={form.height}
                               onChange={changeHandler}
-                              name="height" />
+                              name="height" required />
                           </div>
                           <div class="mb-3 col">
                               <label class="form-label">Berat Badan (kg)</label>
                               <input type="number" class="form-control" 
                               value={form.weight}
                               onChange={changeHandler}
-                              name="weight" />
+                              name="weight" required />
                           </div>
                         </div>
                           <div class="mb-3">
@@ -125,14 +133,14 @@ function AddForm({gender}) {
                               <input type="text" class="form-control"
                               value={form.imageUrl}
                               onChange={changeHandler}
-                              name="imageUrl" />
+                              name="imageUrl" required />
                           </div>
                           <div class="mb-3">
                               <label class="form-label">Pekerjaan</label>
                               <input type="text" class="form-control" 
                               value={form.job}
                               onChange={changeHandler}
-                              name="job" />
+                              name="job" required />
                           </div>
                           <div class="mb-3">
                               <label class="form-label">Untuk data selanjutnya anda wajib melakukan tes terlebih dahulu dengan cara klik Tes Attachment Style di sebelah kanan layar anda</label>

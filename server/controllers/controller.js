@@ -43,7 +43,7 @@ module.exports = class Controller {
             res.status(status).json({ access_token })
 
         } catch (error) {
-            console.log(error)
+            next(error)
         }
     }
     
@@ -56,7 +56,7 @@ module.exports = class Controller {
           
             res.send(responseOpenAI)
         } catch (error) {
-            console.log(error)
+            next(error)
         }
     }
 
@@ -94,7 +94,7 @@ module.exports = class Controller {
 
             res.status(201).json({id: newUser.id, email: newUser.email, gender: newUser.gender})
         } catch (error) {
-            console.log(error)
+            next(error)
         }
     }
 
@@ -132,7 +132,7 @@ module.exports = class Controller {
                 access_token, id, gender
             })
         } catch (error) {
-            console.log(error)
+            next(error)
         }
     }
 
@@ -144,7 +144,7 @@ module.exports = class Controller {
 
             res.status(201).json(male)
         } catch (error) {
-            console.log(error)
+            next(error)
         }
     }
 
@@ -156,7 +156,7 @@ module.exports = class Controller {
 
             res.status(201).json(female)   
         } catch (error) {
-            console.log(error)
+            next(error)
         }
     }
 
@@ -172,7 +172,7 @@ module.exports = class Controller {
             let newMale = await Male.findByPk(id)
             res.status(200).json(newMale)
         } catch (error) {
-            console.log(error)
+            next(error)
         }
     }
 
@@ -188,7 +188,7 @@ module.exports = class Controller {
             let newFemale = await Female.findByPk(id)
             res.status(200).json(newFemale)   
         } catch (error) {
-            console.log(error)
+            next(error)
         }
     }
 
@@ -198,7 +198,7 @@ module.exports = class Controller {
 
             res.status(200).json(data)
         } catch (error) {
-            console.log(error)
+            next(error)
         }
     }
     
@@ -208,7 +208,7 @@ module.exports = class Controller {
 
             res.json(data)
         } catch (error) {
-            console.log(error)
+            next(error)
         }
     }
 
@@ -228,7 +228,7 @@ module.exports = class Controller {
 
             res.json(data)
         } catch (error) {
-            console.log(error)
+            next(error)
         }
     }
 
@@ -248,7 +248,7 @@ module.exports = class Controller {
 
             res.json(data)
         } catch (error) {
-            console.log(error)
+            next(error)
         }
     }
 
@@ -259,7 +259,7 @@ module.exports = class Controller {
 
             res.status(201).json(data)
         } catch (error) {
-            console.log(error)
+            next(error)
         }
     }
 
@@ -276,7 +276,7 @@ module.exports = class Controller {
             }
             res.status(200).json(female) 
         } catch (error) {
-            console.log(error)
+            next(error)
         }
     }
 
@@ -293,7 +293,7 @@ module.exports = class Controller {
             }
             res.status(200).json(male)
         } catch (error) {
-            console.log(error)
+            next(error)
         }
     }
 }

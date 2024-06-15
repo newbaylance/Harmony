@@ -59,6 +59,11 @@ const Login = () => {
       navigate(`/user/${localStorage.id}`)
     } catch (error) {
       setError(true)
+      if(Array.isArray(error.response.data.message)) {
+        Swal.fire(error.response.data.message[0])
+        } else {
+            Swal.fire(error.response.data.message)
+        }
     }
   }
 

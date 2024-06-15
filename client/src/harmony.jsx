@@ -33,7 +33,7 @@ export default function Harmony() {
         <div className='container mt-4'>
             <div className='row gap-4 justify-content-around'>
               { user.map((el) => (
-                <Card key={el.id} id={el.UserId} img={el.imageUrl} name={el.name} job={el.job} style={el.style}/>
+                <Card key={el.id} id={el.id} img={el.imageUrl} name={el.name} job={el.job} style={el.style}/>
               ))}
             </div>
         </div>

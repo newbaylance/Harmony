@@ -8,23 +8,25 @@ export default function MyHarmony() {
 
     const [value, setValue] = useState({})
     const [user, setUser] = useState({})
+    const [isLoading, setIsLoading] = useState(false)
+
     
     useEffect(() => {
         const fetchUser = async () => {
             try {
               let result = {}
               if(localStorage.gender === "male") {
-                let {data} = await axios.get(`http://localhost:3000/harmonyMale/${localStorage.id}`)
-                result = data[0].Female
+                let {data} = await axios.get(`http://localhost:3000/harmonyMale/${localStorage.MaleId}`)
+                result = data[data.length-1].Female
               } else {
-                let {data} = await axios.get(`http://localhost:3000/harmonyFemale/${localStorage.id}`)
-                result = data[0].Male
+                let {data} = await axios.get(`http://localhost:3000/harmonyFemale/${localStorage.FemaleId}`)
+                result = data[data.length-1].Male
               }
                 console.log(result, "<-----")
                 setUser(result)
               } catch (error) {
                 console.log(error)
-              }  
+              }
         }
 
         fetchUser()
@@ -35,7 +37,7 @@ export default function MyHarmony() {
 
     const fetchData = async () => {
     try {
-      
+      setIsLoading(true)
       let {data} = await axios.post(`http://localhost:3000/generate`,
         {
             style: user.style
@@ -44,8 +46,20 @@ export default function MyHarmony() {
       setValue(data)
     } catch (error) {
       console.log(error)
+    } finally {
+      setIsLoading(false)
     }
   }
+
+  if(isLoading) return (
+    <>
+        <div className="d-flex justify-content-center align-items-center" style={{height: "100vh"}}>
+        <div className="spinner-border" style={{width: "3rem", height: "3rem"}} role="status">
+            <span className="sr-only"></span>
+        </div>
+        </div>
+    </>
+    )
 
     return(
         <>

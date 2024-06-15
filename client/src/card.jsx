@@ -9,14 +9,16 @@ export default function Card({id, name, img, job, style}) {
         try {
             if(localStorage.gender === "male"){
                 const { data } = await axios.post("http://localhost:3000/harmony", {
-                    FemaleId: id,
-                    MaleId: localStorage.id
+                    FemaleId: +id,
+                    MaleId: +localStorage.MaleId
                 }) 
+                Swal.fire("Thanks for your like! Find Me in My Harmony menu") 
             } else {
                 const { data } = await axios.post("http://localhost:3000/harmony", {
-                    FemaleId: localStorage.id,
-                    MaleId: id
+                    FemaleId: +localStorage.FemaleId,
+                    MaleId: +id
                 }) 
+                Swal.fire("Thanks for your like! Find Me in My Harmony menu") 
             }
         } catch (error) {
             console.log(error)

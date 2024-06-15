@@ -42,6 +42,7 @@ function EditForm({gender}) {
           job: form.job,
           style: value
         })
+        Swal.fire("Success Edit Profile")
         navigate(`/my-profile/${id}`)
       } else {
         await axios.post(`http://localhost:3000/user/female/${id}`, {
@@ -53,24 +54,33 @@ function EditForm({gender}) {
           job: form.job,
           style: value
         })
+        Swal.fire("Success Edit Profile")
         navigate(`/my-profile/${id}`)
       }
     } catch (error) {
-      console.log(error)
+      if(Array.isArray(error.response.data.message)) {
+        Swal.fire(error.response.data.message[0])
+        } else {
+            Swal.fire(error.response.data.message)
+        }
     }
   }
 
   const fetchData = async (el) => {
     try {
-    if(localStorage.gender === "male") {
-        const { data } = await axios.get(`http://localhost:3000/user/male/${localStorage.id}`)
-        setForm(data)
-    } else {
-        const { data } = await axios.get(`http://localhost:3000/user/female/${localStorage.id}`)
-        setForm(data)
-    }
+      if(localStorage.gender === "male") {
+          const { data } = await axios.get(`http://localhost:3000/user/male/${localStorage.id}`)
+          setForm(data)
+      } else {
+          const { data } = await axios.get(`http://localhost:3000/user/female/${localStorage.id}`)
+          setForm(data)
+      }
     } catch (error) {
-      console.log(error)
+      if(Array.isArray(error.response.data.message)) {
+        Swal.fire(error.response.data.message[0])
+        } else {
+            Swal.fire(error.response.data.message)
+        }
     }
   }
 
