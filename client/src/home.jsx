@@ -6,9 +6,8 @@ function Home() {
 
     function handleClick(e) {
         e.preventDefault()
-        localStorage.removeItem("access_token")
-        localStorage.removeItem("id")
-        localStorage.removeItem("gender")
+        localStorage.clear()
+        
         
         navigate("/login")
     }

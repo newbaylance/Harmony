@@ -10,8 +10,14 @@ import Harmony from "./harmony";
 import MyHarmony from "./myHarmony";
 import EditForm from "./editForm";
 import Register from "./register";
+import MyHarmonyDetail from "./myHarmonyDetail";
+import Redux from "./sandRedux";
 
 const router = createBrowserRouter([
+  {
+    path: "/redux",
+    element: <Redux />,
+  },
   {
     path: "/register",
     element: <Register />,
@@ -47,6 +53,10 @@ const router = createBrowserRouter([
       {
         path: "my-harmony",
         element: <MyHarmony />,
+      },
+      {
+        path: "my-harmony/detail",
+        element: <MyHarmonyDetail />,
       },
       {
         path: "edit",

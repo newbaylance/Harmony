@@ -14,14 +14,102 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Male.init({
-    name: DataTypes.STRING,
-    datebirth: DataTypes.DATE,
-    height: DataTypes.INTEGER,
-    weight: DataTypes.INTEGER,
-    imageUrl: DataTypes.STRING,
-    job: DataTypes.STRING,
-    style: DataTypes.STRING,
-    UserId: DataTypes.INTEGER
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Must be filled!',
+        },
+        notEmpty: {
+          msg: 'Must be filled!',
+        },
+      },
+    },
+    datebirth: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Must be filled!',
+        },
+        notEmpty: {
+          msg: 'Must be filled!',
+        },
+      },
+    },
+    height: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Must be filled!',
+        },
+        notEmpty: {
+          msg: 'Must be filled!',
+        },
+      },
+    },
+    weight: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Must be filled!',
+        },
+        notEmpty: {
+          msg: 'Must be filled!',
+        },
+      },
+    },
+    imageUrl: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Must be filled!',
+        },
+        notEmpty: {
+          msg: 'Must be filled!',
+        },
+      },
+    },
+    job: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Must be filled!',
+        },
+        notEmpty: {
+          msg: 'Must be filled!',
+        },
+      },
+    },
+    style: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Must be filled!',
+        },
+        notEmpty: {
+          msg: 'Must be filled!',
+        },
+      },
+    },
+    UserId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Must be filled!',
+        },
+        notEmpty: {
+          msg: 'Must be filled!',
+        },
+      },
+    },
   }, {
     sequelize,
     modelName: 'Male',
