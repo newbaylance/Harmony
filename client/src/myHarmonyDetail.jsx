@@ -4,37 +4,37 @@ import { useParams } from "react-router-dom"
 
 useEffect
 
-export default function Generate() {
-  const { id } = useParams()
-    
+export default function MyHarmonyDetail() {
+
     const [value, setValue] = useState({})
     const [user, setUser] = useState({})
     const [isLoading, setIsLoading] = useState(false)
+
     
     useEffect(() => {
         const fetchUser = async () => {
-            try {
-              let result = {}
-              if(localStorage.gender === "male") {
-                let {data} = await axios.get(`http://localhost:3000/user/male/${id}`, {
-                  headers: {
-                      Authorization: `Bearer ${localStorage.access_token}`,
-                  }
-                })
-                result = data
-              } else {
-                let {data} = await axios.get(`http://localhost:3000/user/female/${id}`, {
-                  headers: {
-                      Authorization: `Bearer ${localStorage.access_token}`,
-                  }
-                })
-                result = data
-              }
-              //   console.log(data, "<-----")
-                setUser(result)
-              } catch (error) {
-                console.log(error)
-              }  
+          try {
+            let result = {}
+            if(localStorage.gender === "male") {
+              let {data} = await axios.get(`http://localhost:3000/harmonyMale/${localStorage.MaleId}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.access_token}`,
+                }
+            })
+              result = data[data.length-1].Female
+            } else {
+              let {data} = await axios.get(`http://localhost:3000/harmonyFemale/${localStorage.FemaleId}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.access_token}`,
+                }
+            })
+              result = data[data.length-1].Male
+            }
+              console.log(result, "<-----")
+              setUser(result)
+            } catch (error) {
+              console.log(error)
+            }
         }
 
         fetchUser()
@@ -53,16 +53,11 @@ export default function Generate() {
           headers: {
               Authorization: `Bearer ${localStorage.access_token}`,
           }
-        })
+      })
     //   console.log(data, "<-----")
       setValue(data)
     } catch (error) {
       console.log(error)
-      if(Array.isArray(error.response.data.message)) {
-        Swal.fire(error.response.data.message[0])
-      } else {
-          Swal.fire(error.response.data.message)
-      }
     } finally {
       setIsLoading(false)
     }
@@ -97,7 +92,7 @@ export default function Generate() {
                         <h4>Pekerjaan</h4>
                         <p>{user.job}</p>
                         <h4>Gaya Pendekatan</h4>
-                        <button className="btn btn-outline-dark" onClick={fetchData} style={{marginTop: "10px", marginBottom: "10px"}}>Tampilkan Analisa Gaya Pendekatan Saya</button>
+                        <button className="btn btn-outline-dark" onClick={fetchData} style={{marginTop: "10px", marginBottom: "10px"}}>Pahami Karakter {user.name}</button>
                         <p>
                             Analisa Karakter: {value["analisa"]}
                         </p>

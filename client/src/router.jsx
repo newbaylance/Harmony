@@ -10,6 +10,7 @@ import Harmony from "./harmony";
 import MyHarmony from "./myHarmony";
 import EditForm from "./editForm";
 import Register from "./register";
+import MyHarmonyDetail from "./myHarmonyDetail";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
       {
         path: "my-harmony",
         element: <MyHarmony />,
+      },
+      {
+        path: "my-harmony/detail",
+        element: <MyHarmonyDetail />,
       },
       {
         path: "edit",

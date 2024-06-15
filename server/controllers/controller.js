@@ -4,6 +4,7 @@ const { User, Female, Male, Harmony } = require("../models/")
 const { comparePassword } = require("../helpers/bcrypt")
 const { signToken } = require("../helpers/jwt")
 const { OAuth2Client } = require("google-auth-library")
+const { Op } = require("sequelize")
 
 
 
@@ -50,7 +51,7 @@ module.exports = class Controller {
     static async generate(req, res, next) {
         try {
             let {style} = req.body
-            console.log(style)
+            // console.log(style)
   
             let responseOpenAI = await openAI(style)
           
@@ -120,6 +121,8 @@ module.exports = class Controller {
             if(!compared) {
                 throw {name : "UNAUTHORIZED"}
             }
+
+            console.log(foundUser, "<<<<< User")
             
             //Generete token bawa ID
             const access_token = signToken({
@@ -127,9 +130,34 @@ module.exports = class Controller {
             })
             const id = foundUser.id
             const gender = foundUser.gender
+            let MaleId = 0
+            let FemaleId = 0
+
+            
+
+            if(foundUser.gender === "male") {
+                const maleUser = await Male.findOne({
+                    where: {
+                        UserId: foundUser.id
+                    }
+                })
+                if(maleUser) {
+                    MaleId = maleUser.id
+                }
+            } else {
+                const femaleUser = await Female.findOne({
+                    where: {
+                        UserId: foundUser.id
+                    }
+                })
+                if(femaleUser) {
+                    FemaleId = femaleUser.id
+                }
+            }
+            
 
             res.status(200).json({
-                access_token, id, gender
+                access_token, id, gender, MaleId, FemaleId
             })
         } catch (error) {
             next(error)
@@ -258,6 +286,21 @@ module.exports = class Controller {
             const data = await Harmony.create({FemaleId, MaleId})
 
             res.status(201).json(data)
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    static async deleteHarmony(req, res, next) {
+        try {
+            const { FemaleId, MaleId } = req.body
+            const data = await Harmony.destroy({
+                where: {
+                    [Op.and]: [FemaleId, MaleId],
+                }
+            })
+
+            res.status(200).json(data)
         } catch (error) {
             next(error)
         }

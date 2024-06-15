@@ -41,6 +41,10 @@ function EditForm({gender}) {
           imageUrl: form.imageUrl,
           job: form.job,
           style: value
+        }, {
+          headers: {
+              Authorization: `Bearer ${localStorage.access_token}`,
+          }
         })
         Swal.fire("Success Edit Profile")
         navigate(`/my-profile/${id}`)
@@ -53,6 +57,10 @@ function EditForm({gender}) {
           imageUrl: form.imageUrl,
           job: form.job,
           style: value
+        }, {
+          headers: {
+              Authorization: `Bearer ${localStorage.access_token}`,
+          }
         })
         Swal.fire("Success Edit Profile")
         navigate(`/my-profile/${id}`)
@@ -69,10 +77,18 @@ function EditForm({gender}) {
   const fetchData = async (el) => {
     try {
       if(localStorage.gender === "male") {
-          const { data } = await axios.get(`http://localhost:3000/user/male/${localStorage.id}`)
+          const { data } = await axios.get(`http://localhost:3000/user/male/${localStorage.id}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.access_token}`,
+            }
+          })
           setForm(data)
       } else {
-          const { data } = await axios.get(`http://localhost:3000/user/female/${localStorage.id}`)
+          const { data } = await axios.get(`http://localhost:3000/user/female/${localStorage.id}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.access_token}`,
+            }
+          })
           setForm(data)
       }
     } catch (error) {

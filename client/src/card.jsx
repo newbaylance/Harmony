@@ -1,7 +1,8 @@
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Card({id, name, img, job, style}) {
+    const navigate = useNavigate()
     
     const submitHandler = async (el) => {
         el.preventDefault()
@@ -11,14 +12,24 @@ export default function Card({id, name, img, job, style}) {
                 const { data } = await axios.post("http://localhost:3000/harmony", {
                     FemaleId: +id,
                     MaleId: +localStorage.MaleId
-                }) 
-                Swal.fire("Thanks for your like! Find Me in My Harmony menu") 
+                }, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.access_token}`,
+                    }
+                  }) 
+                Swal.fire("Thanks for your like my dear") 
+                navigate("/my-harmony")
             } else {
                 const { data } = await axios.post("http://localhost:3000/harmony", {
                     FemaleId: +localStorage.FemaleId,
                     MaleId: +id
-                }) 
-                Swal.fire("Thanks for your like! Find Me in My Harmony menu") 
+                }, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.access_token}`,
+                    }
+                  }) 
+                Swal.fire("Thanks for your like my dear")
+                navigate("/my-harmony")
             }
         } catch (error) {
             console.log(error)
@@ -37,7 +48,9 @@ export default function Card({id, name, img, job, style}) {
               <div className="card-body">
                   <h5 className="card-title">{name}</h5>
                   <p className="card-text">{job}</p>
-                  <button className="btn btn-success" onClick={submitHandler}>Like</button>
+                  <button class="love-button" id="loveButton" onClick={submitHandler}>
+                    <span class="love-icon">&hearts;</span>
+                  </button>
               </div>
             </div>
         </div>

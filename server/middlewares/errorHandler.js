@@ -1,4 +1,5 @@
 function errorHandler (error, req, res, next) {
+    console.log(error, "<<<<<<<<<<<<<<<<")
     if(error.name === "UNAUTHORIZED" || error.name === "JsonWebTokenError") {
         res.status(401).json({
             message: "Email not found or password not matched"

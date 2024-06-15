@@ -51,10 +51,12 @@ const Login = () => {
         email: loginForm.email,
         password: loginForm.password,
       })
-      // console.log(data, "<-------------data")
+      console.log(data, "<-------------data")
       localStorage.access_token = data.access_token
       localStorage.id = data.id
       localStorage.gender = data.gender
+      localStorage.MaleId = data.MaleId
+      localStorage.FemaleId = data.FemaleId
 
       navigate(`/user/${localStorage.id}`)
     } catch (error) {
@@ -68,8 +70,8 @@ const Login = () => {
   }
 
   useEffect(() => {
-    if(localStorage.access_token) {
-      navigate("/home")
+    if(localStorage.access_token && localStorage.MaleId && localStorage.FemaleId) {
+      navigate("/harmony")
     }
 
     google.accounts.id.initialize({
