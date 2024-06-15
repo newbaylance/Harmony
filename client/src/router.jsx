@@ -11,8 +11,13 @@ import MyHarmony from "./myHarmony";
 import EditForm from "./editForm";
 import Register from "./register";
 import MyHarmonyDetail from "./myHarmonyDetail";
+import Redux from "./sandRedux";
 
 const router = createBrowserRouter([
+  {
+    path: "/redux",
+    element: <Redux />,
+  },
   {
     path: "/register",
     element: <Register />,

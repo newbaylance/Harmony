@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react"
 import Card from "./card"
 import axios from "axios"
+import { fetchUser } from "./store/slicers/counterSlice"
+import { useDispatch, useSelector } from "react-redux"
 
 
 export default function Harmony() {
-    const [user, setUser] = useState([])
-    console.log(localStorage.gender === "male")
+    const data = useSelector((state) => state.counter.data)
 
+    const dispatch = useDispatch()
+    
     useEffect(() => {
-        const fetchUser = async () => {
+        const fetchData = async () => {
             try {
               let result = {}
               if(localStorage.gender === "female") {
@@ -26,21 +29,21 @@ export default function Harmony() {
                 })
                 result = data
               }
-              //   console.log(data, "<-----")
-                setUser(result)
+                // console.log(data, "<-----")
+                dispatch(fetchUser(result))
               } catch (error) {
                 console.log(error)
               }  
         }
 
-        fetchUser()
+        fetchData()
 
     }, [])
     return(
     <>
         <div className='container mt-4'>
             <div className='row gap-4 justify-content-around'>
-              { user.map((el) => (
+              { data.map((el) => (
                 <Card key={el.id} id={el.id} img={el.imageUrl} name={el.name} job={el.job} style={el.style}/>
               ))}
             </div>

@@ -48,8 +48,8 @@ export default function Card({id, name, img, job, style}) {
               <div className="card-body">
                   <h5 className="card-title">{name}</h5>
                   <p className="card-text">{job}</p>
-                  <button class="love-button" id="loveButton" onClick={submitHandler}>
-                    <span class="love-icon">&hearts;</span>
+                  <button className="love-button" id="loveButton" onClick={submitHandler}>
+                    <span className="love-icon">&hearts;</span>
                   </button>
               </div>
             </div>
