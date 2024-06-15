@@ -57,8 +57,12 @@ const Login = () => {
       localStorage.gender = data.gender
       localStorage.MaleId = data.MaleId
       localStorage.FemaleId = data.FemaleId
-
-      navigate(`/user/${localStorage.id}`)
+      
+      if(data.MaleId == 0 && data.FemaleId == 0) {
+        navigate(`/user/${localStorage.id}`)
+      } else {
+        navigate("/harmony")
+      }
     } catch (error) {
       setError(true)
       if(Array.isArray(error.response.data.message)) {

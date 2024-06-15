@@ -44,7 +44,6 @@ module.exports = (sequelize, DataTypes) => {
     gender:{
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: "male",
       validate: {
         notNull: {
           msg: 'Must be filled!',

@@ -14,9 +14,11 @@ function AddForm({gender}) {
   const navigate = useNavigate()
 
   const [value, setValue] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
   const fetchData = async (el) => {
     el.preventDefault()
     try {
+      setIsLoading(true)
       let {data} = await axios.get(`http://localhost:3000/test`, {
         headers: {
             Authorization: `Bearer ${localStorage.access_token}`,
@@ -28,6 +30,8 @@ function AddForm({gender}) {
       setValue(data)
     } catch (error) {
       setError(true)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -101,6 +105,18 @@ function AddForm({gender}) {
   useEffect(() => {
     fetchData()
   }, [value])
+
+  if(isLoading) return (
+    <>
+        <div className="d-flex justify-content-center align-items-center" style={{height: "100vh"}}>
+        <div className="spinner-border" style={{width: "3rem", height: "3rem"}} role="status">
+            <span className="sr-only"></span>
+        </div>
+        </div>
+    </>
+    )
+
+
   return (
     <>
       <div className="container mt-5">
