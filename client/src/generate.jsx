@@ -16,14 +16,14 @@ export default function Generate() {
             try {
               let result = {}
               if(localStorage.gender === "male") {
-                let {data} = await axios.get(`http://localhost:3000/user/male/${id}`, {
+                let {data} = await axios.get(`https://app.bayubelajar.fun/user/male/${id}`, {
                   headers: {
                       Authorization: `Bearer ${localStorage.access_token}`,
                   }
                 })
                 result = data
               } else {
-                let {data} = await axios.get(`http://localhost:3000/user/female/${id}`, {
+                let {data} = await axios.get(`https://app.bayubelajar.fun/user/female/${id}`, {
                   headers: {
                       Authorization: `Bearer ${localStorage.access_token}`,
                   }
@@ -46,7 +46,7 @@ export default function Generate() {
     const fetchData = async () => {
     try {
       setIsLoading(true)
-      let {data} = await axios.post(`http://localhost:3000/generate`,
+      let {data} = await axios.post(`https://app.bayubelajar.fun/generate`,
         {
             style: user.style
         }, {

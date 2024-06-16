@@ -33,7 +33,7 @@ function EditForm({gender}) {
     
     try {
       if(gender === "male") {
-        await axios.post(`http://localhost:3000/user/male/${id}`, {
+        await axios.put(`https://app.bayubelajar.fun/user/male/${id}`, {
           name: form.name,
           datebirth: form.datebirth,
           height: form.height,
@@ -49,7 +49,7 @@ function EditForm({gender}) {
         Swal.fire("Success Edit Profile")
         navigate(`/my-profile/${id}`)
       } else {
-        await axios.post(`http://localhost:3000/user/female/${id}`, {
+        await axios.put(`https://app.bayubelajar.fun/user/female/${id}`, {
           name: form.name,
           datebirth: form.datebirth,
           height: form.height,
@@ -77,14 +77,14 @@ function EditForm({gender}) {
   const fetchData = async (el) => {
     try {
       if(localStorage.gender === "male") {
-          const { data } = await axios.get(`http://localhost:3000/user/male/${localStorage.id}`, {
+          const { data } = await axios.get(`https://app.bayubelajar.fun/user/male/${localStorage.id}`, {
             headers: {
                 Authorization: `Bearer ${localStorage.access_token}`,
             }
           })
           setForm(data)
       } else {
-          const { data } = await axios.get(`http://localhost:3000/user/female/${localStorage.id}`, {
+          const { data } = await axios.get(`https://app.bayubelajar.fun/user/female/${localStorage.id}`, {
             headers: {
                 Authorization: `Bearer ${localStorage.access_token}`,
             }
