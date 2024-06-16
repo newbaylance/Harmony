@@ -30,7 +30,7 @@ export default function Register() {
         e.preventDefault()
 
         try {
-            const {data} = await axios.post('http://localhost:3000/register', {
+            const {data} = await axios.post('https://app.bayubelajar.fun/register', {
                 email: register.email,
                 password: register.password,
                 gender: register.gender,

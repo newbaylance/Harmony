@@ -9,7 +9,7 @@ export default function Card({id, name, img, job, style}) {
 
         try {
             if(localStorage.gender === "male"){
-                const { data } = await axios.post("http://localhost:3000/harmony", {
+                const { data } = await axios.post("https://app.bayubelajar.fun/harmony", {
                     FemaleId: +id,
                     MaleId: +localStorage.MaleId
                 }, {
@@ -20,7 +20,7 @@ export default function Card({id, name, img, job, style}) {
                 Swal.fire("Thanks for your like my dear") 
                 navigate("/my-harmony")
             } else {
-                const { data } = await axios.post("http://localhost:3000/harmony", {
+                const { data } = await axios.post("https://app.bayubelajar.fun/harmony", {
                     FemaleId: +localStorage.FemaleId,
                     MaleId: +id
                 }, {
