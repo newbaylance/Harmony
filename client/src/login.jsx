@@ -10,7 +10,7 @@ const Login = () => {
   async function handleCredentialResponse(response) {
     try {
         const { data } = await axios({
-            url: "http://localhost:3000/google-sign-in",
+            url: "https://app.bayubelajar.fun/google-sign-in",
             method: "post",
             headers: {
                 google_token: response.credential,
@@ -47,7 +47,7 @@ const Login = () => {
 
     try {
       // console.log(loginForm, "<-------------data")
-      const {data} = await axios.post("http://localhost:3000/login", {
+      const {data} = await axios.post("https://app.bayubelajar.fun/login", {
         email: loginForm.email,
         password: loginForm.password,
       })

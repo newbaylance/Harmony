@@ -170,7 +170,7 @@ module.exports = class Controller {
             let {name, datebirth, height, weight, imageUrl, job, style} = req.body
             let male = await Male.create({name, datebirth, height, weight, imageUrl, job, style, UserId: id})
 
-            res.status(201).json(male)
+            res.status(201).json("Profile has been updated")
         } catch (error) {
             next(error)
         }
@@ -182,7 +182,7 @@ module.exports = class Controller {
             let {name, datebirth, height, weight, imageUrl, job, style} = req.body
             let female = await Female.create({name, datebirth, height, weight, imageUrl, job, style, UserId: id})
 
-            res.status(201).json(female)   
+            res.status(201).json("Profile has been updated")   
         } catch (error) {
             next(error)
         }
@@ -191,14 +191,14 @@ module.exports = class Controller {
     static async putProfileMale(req, res, next) {
         try {
             let { id } = req.params
-            let {job} = req.body
-            await Male.update({job}, {
+            let {name, datebirth, height, weight, imageUrl, job} = req.body
+            await Male.update({name, datebirth, height, weight, imageUrl, job}, {
                 where: {
                     id
                 }
             })
             let newMale = await Male.findByPk(id)
-            res.status(200).json(newMale)
+            res.status(200).json("Profile has been updated")
         } catch (error) {
             next(error)
         }
@@ -207,14 +207,14 @@ module.exports = class Controller {
     static async putProfileFemale(req, res, next) {
         try {
             let { id } = req.params
-            let {job} = req.body
-            await Female.update({job}, {
+            let {name, datebirth, height, weight, imageUrl, job} = req.body
+            await Female.update({name, datebirth, height, weight, imageUrl, job}, {
                 where: {
                     id
                 }
             })
             let newFemale = await Female.findByPk(id)
-            res.status(200).json(newFemale)   
+            res.status(200).json("Profile has been updated")   
         } catch (error) {
             next(error)
         }
@@ -300,7 +300,7 @@ module.exports = class Controller {
                 }
             })
 
-            res.status(200).json(data)
+            res.status(200).json("Harmony has been deleted")
         } catch (error) {
             next(error)
         }

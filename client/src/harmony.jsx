@@ -15,14 +15,14 @@ export default function Harmony() {
             try {
               let result = {}
               if(localStorage.gender === "female") {
-                let {data} = await axios.get(`http://localhost:3000/user/male`, {
+                let {data} = await axios.get(`https://app.bayubelajar.fun/user/male`, {
                   headers: {
                       Authorization: `Bearer ${localStorage.access_token}`,
                   }
                 })
                 result = data
               } else {
-                let {data} = await axios.get(`http://localhost:3000/user/female`, {
+                let {data} = await axios.get(`https://app.bayubelajar.fun/user/female`, {
                   headers: {
                       Authorization: `Bearer ${localStorage.access_token}`,
                   }

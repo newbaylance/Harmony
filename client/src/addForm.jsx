@@ -19,7 +19,7 @@ function AddForm({gender}) {
     el.preventDefault()
     try {
       setIsLoading(true)
-      let {data} = await axios.get(`http://localhost:3000/test`, {
+      let {data} = await axios.get(`https://app.bayubelajar.fun/test`, {
         headers: {
             Authorization: `Bearer ${localStorage.access_token}`,
         }
@@ -59,7 +59,7 @@ function AddForm({gender}) {
     
     try {
       if(gender === "male") {
-        const {data} = await axios.post(`http://localhost:3000/user/male/${id}`, {
+        const {data} = await axios.post(`https://app.bayubelajar.fun/user/male/${id}`, {
           name: form.name,
           datebirth: form.datebirth,
           height: form.height,
@@ -76,7 +76,7 @@ function AddForm({gender}) {
         Swal.fire("Success Edit Profile")
         navigate(`/my-profile/${id}`)
       } else {
-        const {data} = await axios.post(`http://localhost:3000/user/female/${id}`, {
+        const {data} = await axios.post(`https://app.bayubelajar.fun/user/female/${id}`, {
           name: form.name,
           datebirth: form.datebirth,
           height: form.height,

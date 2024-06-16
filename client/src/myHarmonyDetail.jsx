@@ -16,14 +16,14 @@ export default function MyHarmonyDetail() {
           try {
             let result = {}
             if(localStorage.gender === "male") {
-              let {data} = await axios.get(`http://localhost:3000/harmonyMale/${localStorage.MaleId}`, {
+              let {data} = await axios.get(`https://app.bayubelajar.fun/harmonyMale/${localStorage.MaleId}`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.access_token}`,
                 }
             })
               result = data[data.length-1].Female
             } else {
-              let {data} = await axios.get(`http://localhost:3000/harmonyFemale/${localStorage.FemaleId}`, {
+              let {data} = await axios.get(`https://app.bayubelajar.fun/harmonyFemale/${localStorage.FemaleId}`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.access_token}`,
                 }
@@ -46,7 +46,7 @@ export default function MyHarmonyDetail() {
     const fetchData = async () => {
     try {
       setIsLoading(true)
-      let {data} = await axios.post(`http://localhost:3000/generate`,
+      let {data} = await axios.post(`https://app.bayubelajar.fun/generate`,
         {
             style: user.style
         }, {
